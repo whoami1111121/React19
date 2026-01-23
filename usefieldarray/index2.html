@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vanilla JS Field Array</title>
+  </head>
+  <body>
+    <div id="fields">
+      <input type="text" placeholder="Enter value" />
+    </div>
+    <div
+      id="displayValues"
+      style="display: flex; gap: 8px; flex-direction: column"
+    >
+      <span>display</span>
+    </div>
+
+    <button id="addBtn">Add</button>
+    <button id="submitBtn">Submit</button>
+    <button id="submitToDisplay">Display</button>
+
+    <script>
+      const fieldsDiv = document.getElementById("fields");
+      const addBtn = document.getElementById("addBtn");
+      const submitBtn = document.getElementById("submitBtn");
+      const displayValues = document.getElementById("displayValues");
+      const submitToDisplay = document.getElementById("submitToDisplay");
+
+      addBtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter value";
+
+        fieldsDiv.appendChild(input);
+      });
+
+      const values = [];
+      submitBtn.addEventListener("click", () => {
+        const inputs = fieldsDiv.querySelectorAll("input");
+
+        inputs.forEach((input) => {
+          values.push(input.value);
+        });
+
+        console.log(values);
+      });
+
+      submitToDisplay.addEventListener("click", () => {
+        values.forEach((value) => {
+          const span = document.createElement("span");
+          const textNode = document.createTextNode(value);
+          span.appendChild(textNode);
+          displayValues.appendChild(span);
+        });
+      });
+    </script>
+  </body>
+</html>
