@@ -1,3 +1,4 @@
+import Alluser from "./components/gituserFromjsonPlaceholder/Alluser";
 import RHForm from "./components/RHForm";
 import RHFormMyP1 from "./components/RHFormMyP1";
 
@@ -8,6 +9,7 @@ function App() {
         <h1 className="text-4xl text-red-900">hello</h1>
         <RHForm />
         {/* <RHFormMyP1 /> */}
+        {/* <Alluser /> */}
       </div>
     </>
   );
