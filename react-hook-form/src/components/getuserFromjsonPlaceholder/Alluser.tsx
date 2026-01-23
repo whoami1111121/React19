@@ -18,8 +18,9 @@ const Alluser = () => {
         {users?.map((item) => (
           <div key={item.id}>
             {item.name}
-
+            <br />
             <button onClick={() => setDetail(item)}>detail</button>
+            <br />
           </div>
         ))}
       </div>

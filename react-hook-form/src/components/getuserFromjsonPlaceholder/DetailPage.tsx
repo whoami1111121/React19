@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const DetailPage = ({ detail }) => {
@@ -11,11 +11,21 @@ const DetailPage = ({ detail }) => {
       website: detail.website,
     },
   });
-  const { register, handleSubmit, control, formState } = form;
+  const { register, handleSubmit } = form;
 
   const onSubmit = (data) => {
     console.log(data);
   };
+  useEffect(() => {
+    if (detail) {
+      form.reset({
+        name: detail.name,
+        email: detail.email,
+        phone: detail.phone,
+        website: detail.website,
+      });
+    }
+  }, [detail, form]);
 
   return (
     <div className="py-8">

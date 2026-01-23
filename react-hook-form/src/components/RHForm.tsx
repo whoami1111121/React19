@@ -27,13 +27,18 @@ const RHForm = () => {
   };
   renderCount++;
   return (
-    <div>
+    <div className="w-70 mx-auto py-12">
       <h2>React Hook Form :- {renderCount / 2}</h2>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex gap-4 flex-col"
+        noValidate
+      >
         <div>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
+            className="w-full px-6 py-2 border border-white rounded-2xl"
             id="username"
             {...register("username", { required: "user name is req" })}
           />
@@ -43,6 +48,7 @@ const RHForm = () => {
           <label htmlFor="email">Email:</label>
           <input
             type="email"
+            className="w-full px-6 py-2 border border-white rounded-2xl"
             id="email"
             {...register("email", {
               pattern: {
@@ -71,6 +77,7 @@ const RHForm = () => {
           <label htmlFor="channel">Channel:</label>
           <input
             type="text"
+            className="w-full px-6 py-2 border border-white rounded-2xl"
             id="channel"
             {...register("channel", {
               validate: {
