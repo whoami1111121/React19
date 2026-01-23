@@ -8,10 +8,10 @@ function App() {
     <>
       <div className="min-h-screen bg-black text-white">
         <h1 className="text-4xl text-red-900">hello</h1>
-        {/* <RHForm /> */}
+        <RHForm />
         {/* <RHFormMyP1 /> */}
         {/* <Alluser /> */}
-        <RHFormAtlistOne />
+        {/* <RHFormAtlistOne /> */}
       </div>
     </>
   );
