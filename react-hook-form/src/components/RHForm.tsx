@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 let renderCount = 0;
 type FormValues = {
@@ -7,6 +7,9 @@ type FormValues = {
   email: string;
   channel: string;
   phno: string[];
+  phnos: {
+    num: string;
+  }[];
 };
 const RHForm = () => {
   const form = useForm<FormValues>({
@@ -15,18 +18,20 @@ const RHForm = () => {
       email: "",
       channel: "",
       phno: ["", ""],
+      phnos: [{ num: "" }],
     },
   });
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
 
   const onSubmit = (data: FormValues) => {
-    // if (data.username === "" || data.email === "" || data.channel === "") {
-    //   alert("All fields are required!");
-    //   return;
-    // }
     console.log(data);
   };
+  const { fields, append } = useFieldArray({
+    name: "phnos",
+    control,
+  });
+
   renderCount++;
   return (
     <div className="w-70 mx-auto py-12">
@@ -108,6 +113,25 @@ const RHForm = () => {
             {...register("phno.1")}
             id="channel"
           />
+        </div>
+        <div>
+          <label htmlFor="">phnos list</label>
+          <div>
+            {fields.map((field, index) => {
+              return (
+                <div className="" key={field.id}>
+                  <input
+                    className="w-full px-6 py-2 border border-white rounded-2xl"
+                    type="text"
+                    {...register(`phnos.${index}.num` as const)}
+                  />
+                </div>
+              );
+            })}
+            <button type="button" onClick={() => append({ num: "" })}>
+              add
+            </button>
+          </div>
         </div>
         <button type="submit">Submit</button>
       </form>
