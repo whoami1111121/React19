@@ -34,11 +34,12 @@ const RHFormAtlistOne2 = () => {
   // 👀 watch other fields
   const insta = watch("social.insta");
   const twitter = watch("social.twitter");
+  const facebook = watch("social.facebook");
 
   // 🔁 revalidate facebook when others change
   useEffect(() => {
     trigger("social.facebook");
-  }, [insta, twitter, trigger]);
+  }, [insta, twitter, trigger, facebook]);
 
   const onSubmit = (data: FormValues) => {
     console.log("SUBMITTED ✅", data);
@@ -55,11 +56,13 @@ const RHFormAtlistOne2 = () => {
           <input
             className="w-full px-6 py-2 border rounded-2xl"
             {...register("social.facebook", {
-              validate: (_, values) =>
-                values.social.facebook ||
-                values.social.insta ||
-                values.social.twitter ||
-                "At least one social link is required",
+              required: {
+                value:
+                  watch("social.insta") === "" &&
+                  watch("social.twitter") === "" &&
+                  watch("social.facebook") === "",
+                message: "fb ok",
+              },
             })}
           />
         </div>
@@ -69,7 +72,15 @@ const RHFormAtlistOne2 = () => {
           <label>Instagram</label>
           <input
             className="w-full px-6 py-2 border rounded-2xl"
-            {...register("social.insta")}
+            {...register("social.insta", {
+              required: {
+                value:
+                  watch("social.insta") === "" &&
+                  watch("social.twitter") === "" &&
+                  watch("social.facebook") === "",
+                message: "fb ok",
+              },
+            })}
           />
         </div>
 
@@ -78,11 +89,20 @@ const RHFormAtlistOne2 = () => {
           <label>Twitter</label>
           <input
             className="w-full px-6 py-2 border rounded-2xl"
-            {...register("social.twitter")}
+            {...register("social.twitter", {
+              required: {
+                value:
+                  watch("social.insta") === "" &&
+                  watch("social.twitter") === "" &&
+                  watch("social.facebook") === "",
+                message: "fb ok",
+              },
+            })}
           />
         </div>
 
         {/* ERROR */}
+
         <p className="text-red-600">{errors.social?.facebook?.message}</p>
 
         <button type="submit">Submit</button>
