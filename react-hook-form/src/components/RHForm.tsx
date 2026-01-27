@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 
 let renderCount = 0;
 type FormValues = {
@@ -22,6 +22,7 @@ const RHForm = () => {
       phnos: [{ num: "" }],
       dob: new Date(),
     },
+    mode: "onChange",
   });
   const {
     register,
@@ -31,12 +32,19 @@ const RHForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid, isSubmitting } =
+    formState;
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
   };
+
+  const onError = (errors: FieldErrors<FormValues>) => {
+    console.log("sub error", errors);
+  };
+
   const { fields, append, remove } = useFieldArray({
     name: "phnos",
     control,
@@ -67,7 +75,7 @@ const RHForm = () => {
         React Hook Form :- {renderCount / 2} : - {uName[0]} - {uName[1]}
       </h2>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onError)}
         className="flex gap-4 flex-col"
         noValidate
       >
@@ -113,6 +121,13 @@ const RHForm = () => {
                 },
                 notBlackList: (value) =>
                   !value.endsWith("bad.com") || "bad email",
+                emailAvailable: async (fieldValue) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`,
+                  );
+                  const data = await response.json();
+                  return data.length == 0 || "email alredy exit";
+                },
               },
             })}
           />
@@ -192,7 +207,14 @@ const RHForm = () => {
           />
           <p className="text-red-700">{errors.dob?.message}</p>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isSubmitting}>
+          Submit
+        </button>
+        <button onClick={() => reset()}>reset</button>
+        {/* if we don't modify or wrong value in field submit is desable */}
+        {/* <button type="submit" disabled={!isDirty || !isValid}>
+          Submit
+        </button> */}
         <button onClick={handelSetValue}>set value</button>
       </form>
       <DevTool control={control} />
