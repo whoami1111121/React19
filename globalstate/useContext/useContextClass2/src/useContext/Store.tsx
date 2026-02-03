@@ -1,3 +1,6 @@
 import { createContext } from "react";
 
-export const MyContext = createContext<undefined | string>(undefined);
+export const MyContext = createContext({
+  message: "",
+  warning: "",
+});
