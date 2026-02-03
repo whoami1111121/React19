@@ -1,12 +1,17 @@
 import "./App.css";
 import TaskBase from "./components/TaskBase";
+import { MyContext } from "./useContext/store";
 
 function App() {
+  const message = "this is my message";
+
   return (
     <>
-      <div className="bg-black text-white w-full min-h-screen text-2xl">
-        <TaskBase />
-      </div>
+      <MyContext.Provider value={message}>
+        <div className="bg-black text-white w-full min-h-screen text-2xl">
+          <TaskBase />
+        </div>
+      </MyContext.Provider>
     </>
   );
 }
