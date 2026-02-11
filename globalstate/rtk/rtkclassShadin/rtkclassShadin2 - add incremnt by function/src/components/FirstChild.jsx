@@ -14,13 +14,27 @@ const FirstChild = () => {
 
       <br />
       <br />
-      <button onClick={() => dispatch(incrementBy(incAmt))}>ince by</button>
+      <button onClick={() => dispatch(incrementBy(Number(incAmt)))}>
+        ince by
+      </button>
 
       <br />
       <br />
       <h1>inc Amt is :- {incAmt}</h1>
 
+      <br />
+      <br />
+      <input
+        type="number"
+        value={incAmt}
+        onChange={(e) => setIncAmt(Number(e.target.value))}
+      />
+      <br />
+      <br />
+
       <button onClick={() => setIncAmt(incAmt + 1)}>ince inc Amt</button>
+      <br />
+      <br />
       <button onClick={() => setIncAmt(incAmt - 1)}>dec inc Amt</button>
     </div>
   );
