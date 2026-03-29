@@ -11,7 +11,7 @@ const Home = () => {
 
             <br />
             {
-                todos.length ?
+                todos.length > 0 ?
                     todos.map((todo, i) => (
                         <div key={i}>
                             <h1>{todo}</h1>
