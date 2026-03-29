@@ -1,10 +1,9 @@
-import React from 'react'
 import './App.css'
 import Base from './components/Base'
 
 const App = () => {
   return (
-    <div>
+    <div className='bg-black text-white min-h-screen'>
       <Base />
     </div>
   )

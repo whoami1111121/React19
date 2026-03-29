@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Create from './Create'
 
 const Home = () => {
+    const [todos, setTodos] = useState([])
     return (
-        <div> 
-            Home
-            Home
+        <div>
+            <h1>Tolo List</h1>
             <br />
-            <Create />
+            <Create setTodos={setTodos} todos={todos} />
+
+            <br />
+            {
+                todos.length ?
+                    todos.map((todo, i) => (
+                        <div key={i}>
+                            <h1>{todo}</h1>
+                        </div>
+                    ))
+                    :
+                    <h1>Plz add todo</h1>
+            }
         </div>
     )
 }
